@@ -80,6 +80,5 @@ public class PeopleAPIclient {
         HttpEntity newEntity = new StringEntity(body, ContentType.get(entity));
         response.setEntity(newEntity);
         return response;
-
     }
 }
