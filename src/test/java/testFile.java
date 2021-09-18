@@ -11,6 +11,7 @@ HttpResponse response;
 HttpResponse getpeople;
 HttpResponse getOnePerson;
 HttpResponse deleteOnePerson;
+HttpResponse putPerson;
 
     @Test
     public void  testFile() throws Exception {
@@ -19,6 +20,7 @@ HttpResponse deleteOnePerson;
         getOnePerson = peopleAPIclient.getOnePerson();
         peopleAPIclient.postOnePerson();
         deleteOnePerson = peopleAPIclient.deleteOnePerson();
+        putPerson = peopleAPIclient.putPerson();
 
         String body = EntityUtils.toString(response.getEntity());
         String getAllPeople = EntityUtils.toString(getpeople.getEntity());

@@ -8,6 +8,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpPut;
 import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
@@ -107,6 +108,7 @@ public class PeopleAPIclient {
         response.setEntity(newEntity);
         return response;
     }
+
     public HttpResponse postOnePerson() throws Exception {
         Header contentType = new BasicHeader(HttpHeaders.CONTENT_TYPE, "application/json");
         SSLContext sslContext = SSLContextBuilder
@@ -116,11 +118,37 @@ public class PeopleAPIclient {
 
         HttpPost request = new HttpPost("https://people-api1.herokuapp.com/api/person");
         JSONObject payloadAsObject = new JSONObject(postOnePerson());
-        payloadAsObject.put("name","Vesna");
-        payloadAsObject.put("surname","Hristov");
-        payloadAsObject.put("age",38);
-        payloadAsObject.put("isEmployed",false);
-        payloadAsObject.put("location","Skopje");
+        payloadAsObject.put("name", "Vesna");
+        payloadAsObject.put("surname", "Hristov");
+        payloadAsObject.put("age", 38);
+        payloadAsObject.put("isEmployed", false);
+        payloadAsObject.put("location", "Skopje");
+
+        request.setHeader(contentType);
+        request.setEntity(new StringEntity(payloadAsObject.toString()));
+        HttpClient httpClient = HttpClients.custom().setSSLContext(sslContext).build();
+
+        HttpResponse response = httpClient.execute(request);
+
+        HttpEntity entity = response.getEntity();
+        String body = EntityUtils.toString(response.getEntity());
+
+        HttpEntity newEntity = new StringEntity(body, ContentType.get(entity));
+        response.setEntity(newEntity);
+        return response;
+    }
+
+    public HttpResponse putPerson() throws Exception {
+        Header contentType = new BasicHeader(HttpHeaders.CONTENT_TYPE, "application/json");
+        SSLContext sslContext = SSLContextBuilder
+                .create()
+                .loadTrustMaterial(new TrustSelfSignedStrategy())
+                .build();
+
+        HttpPut request = new HttpPut("https://people-api1.herokuapp.com/api/person/6141a1cf3ed8460004ca696a");
+        JSONObject payloadAsObject = new JSONObject(postOnePerson());
+        payloadAsObject.put("isEmployed", true);
+        payloadAsObject.put("location", "NY");
 
         request.setHeader(contentType);
         request.setEntity(new StringEntity(payloadAsObject.toString()));
@@ -136,3 +164,4 @@ public class PeopleAPIclient {
         return response;
     }
 }
+
