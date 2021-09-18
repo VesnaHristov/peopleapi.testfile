@@ -16,6 +16,7 @@ HttpResponse getOnePerson;
        peopleAPIclient.deleteOnePerson();
         getpeople = peopleAPIclient.getAllPeople();
         getOnePerson = peopleAPIclient.getOnePerson();
+        peopleAPIclient.postOnePerson();
 
         String body = EntityUtils.toString(response.getEntity());
         String getAllPeople = EntityUtils.toString(getpeople.getEntity());

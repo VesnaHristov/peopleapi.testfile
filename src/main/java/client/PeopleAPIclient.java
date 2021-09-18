@@ -121,8 +121,9 @@ public class PeopleAPIclient {
         payloadAsObject.put("age",38);
         payloadAsObject.put("isEmployed",false);
         payloadAsObject.put("location","Skopje");
-        request.setHeader(contentType);
 
+        request.setHeader(contentType);
+        request.setEntity(new StringEntity(payloadAsObject.toString()));
         HttpClient httpClient = HttpClients.custom().setSSLContext(sslContext).build();
 
         HttpResponse response = httpClient.execute(request);
