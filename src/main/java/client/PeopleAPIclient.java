@@ -5,6 +5,7 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
 import org.apache.http.entity.ContentType;
@@ -18,7 +19,7 @@ import javax.net.ssl.SSLContext;
 
 public class PeopleAPIclient {
     public HttpResponse getWellcomeReqwest() throws Exception {
-        Header contentType = new BasicHeader(HttpHeaders.CONTENT_TYPE,"application/json");
+        Header contentType = new BasicHeader(HttpHeaders.CONTENT_TYPE, "application/json");
         SSLContext sslContext = SSLContextBuilder
                 .create()
                 .loadTrustMaterial(new TrustSelfSignedStrategy())
@@ -39,8 +40,8 @@ public class PeopleAPIclient {
         return response;
     }
 
-    public  HttpResponse getAllPeople() throws Exception {
-        Header contentType = new BasicHeader(HttpHeaders.CONTENT_TYPE,"application/json");
+    public HttpResponse getAllPeople() throws Exception {
+        Header contentType = new BasicHeader(HttpHeaders.CONTENT_TYPE, "application/json");
         SSLContext sslContext = SSLContextBuilder
                 .create()
                 .loadTrustMaterial(new TrustSelfSignedStrategy())
@@ -60,14 +61,37 @@ public class PeopleAPIclient {
         response.setEntity(newEntity);
         return response;
     }
-    public  HttpResponse getOnePerson() throws Exception {
-        Header contentType = new BasicHeader(HttpHeaders.CONTENT_TYPE,"application/json");
+
+    public HttpResponse getOnePerson() throws Exception {
+        Header contentType = new BasicHeader(HttpHeaders.CONTENT_TYPE, "application/json");
         SSLContext sslContext = SSLContextBuilder
                 .create()
                 .loadTrustMaterial(new TrustSelfSignedStrategy())
                 .build();
 
         HttpGet request = new HttpGet("https://people-api1.herokuapp.com/api/person/6141a1cf3ed8460004ca696a");
+        request.setHeader(contentType);
+
+        HttpClient httpClient = HttpClients.custom().setSSLContext(sslContext).build();
+
+        HttpResponse response = httpClient.execute(request);
+
+        HttpEntity entity = response.getEntity();
+        String body = EntityUtils.toString(response.getEntity());
+
+        HttpEntity newEntity = new StringEntity(body, ContentType.get(entity));
+        response.setEntity(newEntity);
+        return response;
+    }
+
+    public HttpResponse deleteOnePeron() throws Exception {
+        Header contentType = new BasicHeader(HttpHeaders.CONTENT_TYPE, "application/json");
+        SSLContext sslContext = SSLContextBuilder
+                .create()
+                .loadTrustMaterial(new TrustSelfSignedStrategy())
+                .build();
+
+        HttpDelete request = new HttpDelete("https://people-api1.herokuapp.com/api/person/6141a1cf3ed8460004ca696a");
         request.setHeader(contentType);
 
         HttpClient httpClient = HttpClients.custom().setSSLContext(sslContext).build();
