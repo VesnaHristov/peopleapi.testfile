@@ -15,6 +15,7 @@ HttpResponse response;
 
     @Test
     public void  welcomeMessagePeopleAPITest() throws Exception {
+        String expectedMessage = "Welcome to People API";
        response = peopleAPIclient.getWelcomeRequest();
 
       String body = EntityUtils.toString(response.getEntity());
@@ -22,7 +23,10 @@ HttpResponse response;
 
       String messageAsString = bodyAsObject.get("message").toString();
 
-       Assert.assertEquals(messageAsString,"Welcome To People API");
+       Assert.assertEquals(messageAsString,expectedMessage);
     }
+    @Test
+    public void getSinglePeson() throws  Exception {
 
+    }
 }
