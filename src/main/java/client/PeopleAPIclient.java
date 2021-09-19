@@ -21,7 +21,7 @@ import org.json.JSONObject;
 import javax.net.ssl.SSLContext;
 
 public class PeopleAPIclient {
-    public HttpResponse getWellcomeReqwest() throws Exception {
+    public HttpResponse getWelcomeRequest() throws Exception {
         Header contentType = new BasicHeader(HttpHeaders.CONTENT_TYPE, "application/json");
         SSLContext sslContext = SSLContextBuilder
                 .create()
@@ -163,5 +163,7 @@ public class PeopleAPIclient {
         response.setEntity(newEntity);
         return response;
     }
+
+
 }
 
