@@ -42,4 +42,16 @@ public class testFile {
         JSONObject bodyAsObject = new JSONObject(body);
         String messageAsString = bodyAsObject.get("message").toString();
     }
+    @Test
+    public void postOnePerson() throws Exception {
+        JSONObject payloadAsObject = new JSONObject();
+        payloadAsObject.put("name", "Pero");
+        payloadAsObject.put("surname", "Blazevski");
+        payloadAsObject.put("age", 56);
+        payloadAsObject.put("isEmployed", true);
+        payloadAsObject.put("location", "Skopje");
+
+        response = peopleAPIclient.httpPost("https://people-api1.herokuapp.com/api/person", payloadAsObject);
+        String body = EntityUtils.toString(response.getEntity());
+    }
     }

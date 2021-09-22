@@ -19,6 +19,10 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
 import javax.net.ssl.SSLContext;
+import java.io.IOException;
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
 
 public class PeopleAPIclient {
     public HttpResponse getWelcomeRequest() throws Exception {
@@ -185,4 +189,27 @@ public class PeopleAPIclient {
         response.setEntity(newEntity);
         return response;
     }
-}
+
+    public HttpResponse httpPost(String s, JSONObject payloadAsObject) throws IOException, NoSuchAlgorithmException, KeyStoreException, KeyManagementException {
+            Header contentType = new BasicHeader(HttpHeaders.CONTENT_TYPE, "application/json");
+            SSLContext sslContext = SSLContextBuilder
+                    .create()
+                    .loadTrustMaterial(new TrustSelfSignedStrategy())
+                    .build();
+
+            HttpDelete request = new HttpDelete("https://people-api1.herokuapp.com/api/person/6141a1cf3ed8460004ca696a");
+            request.setHeader(contentType);
+
+            HttpClient httpClient = HttpClients.custom().setSSLContext(sslContext).build();
+
+            HttpResponse response = httpClient.execute(request);
+
+            HttpEntity entity = response.getEntity();
+            String body = EntityUtils.toString(response.getEntity());
+
+            HttpEntity newEntity = new StringEntity(body, ContentType.get(entity));
+            response.setEntity(newEntity);
+            return response;
+        }
+    }
+
