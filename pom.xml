@@ -4,14 +4,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>Code.Academy</groupId>
-    <artifactId>peopleapi</artifactId>
+    <groupId>code.academy</groupId>
+    <artifactId>PeopleAPI-testingFramework</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <maven.compiler.source>16</maven.compiler.source>
-        <maven.compiler.target>16</maven.compiler.target>
+        <maven.compiler.source>15</maven.compiler.source>
+        <maven.compiler.target>15</maven.compiler.target>
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.testng</groupId>
@@ -23,14 +24,17 @@
             <artifactId>httpclient</artifactId>
             <version>4.5.13</version>
         </dependency>
-        <dependency> <groupId>org.json</groupId>
+        <dependency>
+            <groupId>org.json</groupId>
             <artifactId>json</artifactId>
             <version>20180130</version>
         </dependency>
-
-
-
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.20</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
-
 
 </project>
