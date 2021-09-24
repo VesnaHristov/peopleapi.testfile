@@ -11,6 +11,9 @@ public class testFile {
     PeopleAPIclient peopleAPIclient = new PeopleAPIclient();
     HttpResponse response;
 
+    public testFile() throws Exception {
+    }
+
     @Test
     public void welcomeMessagePeopleAPITest() throws Exception {
         String expectedMessage = "Welcome to People API";
@@ -79,3 +82,5 @@ public class testFile {
         String body = EntityUtils.toString(response.getEntity());
     }
 }
+
+
