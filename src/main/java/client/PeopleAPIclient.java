@@ -175,7 +175,7 @@ public class PeopleAPIclient {
                 .loadTrustMaterial(new TrustSelfSignedStrategy())
                 .build();
 
-        HttpDelete request = new HttpDelete("https://people-api1.herokuapp.com/api/person/6141a1cf3ed8460004ca696a");
+        HttpGet request = new HttpGet("https://people-api1.herokuapp.com/api/person/6141a1cf3ed8460004ca696a");
         request.setHeader(contentType);
 
         HttpClient httpClient = HttpClients.custom().setSSLContext(sslContext).build();
@@ -197,7 +197,7 @@ public class PeopleAPIclient {
                 .loadTrustMaterial(new TrustSelfSignedStrategy())
                 .build();
 
-        HttpDelete request = new HttpDelete("https://people-api1.herokuapp.com/api/person/6141a1cf3ed8460004ca696a");
+        HttpPost request = new HttpPost("https://people-api1.herokuapp.com/api/person/6141a1cf3ed8460004ca696a");
         request.setHeader(contentType);
 
         HttpClient httpClient = HttpClients.custom().setSSLContext(sslContext).build();
@@ -219,7 +219,7 @@ public class PeopleAPIclient {
                 .loadTrustMaterial(new TrustSelfSignedStrategy())
                 .build();
 
-        HttpDelete request = new HttpDelete("https://people-api1.herokuapp.com/api/person/6141a1cf3ed8460004ca696a");
+        HttpPut request = new HttpPut("https://people-api1.herokuapp.com/api/person/6141a1cf3ed8460004ca696a");
         request.setHeader(contentType);
 
         HttpClient httpClient = HttpClients.custom().setSSLContext(sslContext).build();
@@ -232,5 +232,92 @@ public class PeopleAPIclient {
         HttpEntity newEntity = new StringEntity(body, ContentType.get(entity));
         response.setEntity(newEntity);
         return response;
+    }
+    public class PeopleApiClient {
+        public PeopleApiClient() throws Exception {
+        }
+
+        Header contentType = new BasicHeader(HttpHeaders.CONTENT_TYPE, "application/json");
+
+        SSLContext sslContext = SSLContextBuilder
+                .create()
+                .loadTrustMaterial(new TrustSelfSignedStrategy())
+                .build();
+
+        public HttpResponse httpGet(String url) throws Exception {
+            HttpGet requets = new HttpGet(url);
+
+            requets.setHeader(contentType);
+
+            HttpClient httpClient = HttpClients.custom().setSSLContext(sslContext).build();
+
+            HttpResponse response = httpClient.execute(requets);
+
+            HttpEntity entity = response.getEntity();
+
+            String body = EntityUtils.toString(response.getEntity());
+
+            HttpEntity newEntity = new StringEntity(body, ContentType.get(entity));
+            response.setEntity(newEntity);
+
+            return response;
+        }
+
+        public HttpResponse httpDelete(String url) throws Exception {
+            HttpDelete request = new HttpDelete(url);
+
+            HttpClient httpClient = HttpClients.custom().setSSLContext(sslContext).build();
+
+            HttpResponse response = httpClient.execute(request);
+
+            HttpEntity entity = response.getEntity();
+            String body = EntityUtils.toString(response.getEntity());
+
+            HttpEntity newEntity = new StringEntity(body, ContentType.get(entity));
+            response.setEntity(newEntity);
+
+            return response;
+
+        }
+
+        public HttpResponse httpPost(String url,String payload) throws Exception {
+            HttpPost request = new HttpPost(url);
+
+            request.setHeader(contentType);
+            request.setEntity(new StringEntity(payload));
+
+            HttpClient httpClient = HttpClients.custom().setSSLContext(sslContext).build();
+
+            HttpResponse response = httpClient.execute(request);
+
+            HttpEntity entity = response.getEntity();
+            String body = EntityUtils.toString(response.getEntity());
+
+            HttpEntity newEntity = new StringEntity(body, ContentType.get(entity));
+            response.setEntity(newEntity);
+
+            return response;
+        }
+
+        public HttpResponse httpPut(String url,String payload) throws Exception {
+            HttpPut request = new HttpPut(url);
+
+            request.setHeader(contentType);
+            request.setEntity(new StringEntity(payload));
+
+            HttpClient httpClient = HttpClients.custom().setSSLContext(sslContext).build();
+
+            HttpResponse response = httpClient.execute(request);
+
+            HttpEntity entity = response.getEntity();
+            String body = EntityUtils.toString(response.getEntity());
+
+            HttpEntity newEntity = new StringEntity(body, ContentType.get(entity));
+            response.setEntity(newEntity);
+
+            return response;
+        }
+
+
     }
 }

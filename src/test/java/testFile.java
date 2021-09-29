@@ -7,9 +7,10 @@ import org.json.JSONObject;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class testFile {
+public class testFile<PostNewPersonPayload, PostNewPersonRequest, PostNewPersonResponse> {
     PeopleAPIclient peopleAPIclient = new PeopleAPIclient();
     HttpResponse response;
+    private Object GetMessageResponse;
 
     public testFile() throws Exception {
     }
@@ -72,7 +73,9 @@ public class testFile {
         response = peopleAPIclient.httpPost("https://people-api1.herokuapp.com/api/person", payloadAsObject);
         String body = EntityUtils.toString(response.getEntity());
     }
-    @Test public void updatePersonLocation() throws Exception {
+
+    @Test
+    public void updatePersonLocation() throws Exception {
         JSONObject payloadAsObject = new JSONObject();
         payloadAsObject.put("location", "Bitola");
 
@@ -82,5 +85,3 @@ public class testFile {
         String body = EntityUtils.toString(response.getEntity());
     }
 }
-
-
